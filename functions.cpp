@@ -41,7 +41,7 @@ void compress(const string& inputFile, const string& outputFile, int historySize
             }
         }
         nextChar = (pos + bestLength < data.size()) ? data[pos + bestLength] : '\0';
-        compressed.push_back({ (char)(bestOffset), (char)bestLength, nextChar });
+        compressed.push_back({ bestOffset, bestLength, nextChar });
         pos += bestLength + 1;
     }
 
@@ -62,8 +62,8 @@ void decompress(const string& inputFile, const string& outputFile) {
     vector<char> decompressed;
     Token token;
     while (in.read(reinterpret_cast<char*>(&token), sizeof(Token))) {
-        int start = decompressed.size() - ((int)token.offset);
-        for (int i = 0; i < ((int)token.length); i++) {
+        int start = decompressed.size() - (token.offset);
+        for (int i = 0; i < (token.length); i++) {
             decompressed.push_back(decompressed[start + i]);
         }
         if (token.nextChar != '\0') {
