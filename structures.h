@@ -3,8 +3,8 @@
 
 
 struct Token {
-    char offset;
-    char length;
+    int offset;
+    int length;
     char nextChar;
 };
 
